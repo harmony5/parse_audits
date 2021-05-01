@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import typer
-from parse_audits import process_audit_file
+from parse_audits.parse_audits import process_audit_file
 
 
 def main(audit_filename: str):
