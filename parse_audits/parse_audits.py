@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 import regex as re
 import json
-from os.path import basename
+from os import path
 
 
 __AUDIT_ENTRY_PATTERN = re.compile(
@@ -163,7 +163,7 @@ def __parse_audits_csv_str(audit_str: str) -> Dict[str, str]:
     field_csv = "\n".join(
         ["fid|eid|fname|delta|old|new|value"]
         + [
-            f"{fid}|{eid}|{fname}|{delta}|{old}|{new}|{value}"
+            rf"{fid}|{eid}|{fname}|{delta}|{old}|{new}|{value}"
             for fid, eid, fname, delta, old, new, value in parsed["fields"]
         ]
     )
@@ -177,13 +177,13 @@ def __parse_audits_csv_str(audit_str: str) -> Dict[str, str]:
     }
 
 
-def write_file(filename, content):
+def __write_file(filename, content):
     with open(filename, "w", encoding="utf-8") as f:
         f.write(content)
 
 
 def process_audit_file(audit_filename):
-    base_filename = basename(audit_filename)
+    base_filename = path.basename(audit_filename).split('.')[0]
 
     with open(audit_filename, "r", encoding="utf-8") as f:
         audit_str = f.read()
@@ -195,8 +195,8 @@ def process_audit_file(audit_filename):
     user_group_filename = base_filename + "_users_groups.csv"
     field_filename = base_filename + "_fields.csv"
 
-    write_file(entry_filename, parsed["entry"])
-    write_file(user_filename, parsed["user"])
-    write_file(group_filename, parsed["group"])
-    write_file(user_group_filename, parsed["user_group"])
-    write_file(field_filename, parsed["field"])
+    __write_file(entry_filename, parsed["entry"])
+    __write_file(user_filename, parsed["user"])
+    __write_file(group_filename, parsed["group"])
+    __write_file(user_group_filename, parsed["user_group"])
+    __write_file(field_filename, parsed["field"])

@@ -1,3 +1,5 @@
 test_audit.txt
 /venv
 /.vscode
+/parse_audits.egg-info/
+*__pycache__/

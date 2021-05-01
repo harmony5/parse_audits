@@ -1,13 +1,19 @@
-# parse-audit
+# parse-audits
 
-`parse-audit` lets you parse [ClearQuest](https://www.ibm.com/products/rational-clearquest) [AuditTrail](https://www.ibm.com/support/pages/ibm-rational-clearquest-audittrail-esignature-packages-user-guide) files to an easier to use format like **csv**.
+`parse-audits` lets you parse [ClearQuest](https://www.ibm.com/products/rational-clearquest) [AuditTrail](https://www.ibm.com/support/pages/ibm-rational-clearquest-audittrail-esignature-packages-user-guide) files to an easier to use format like **csv**.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install parse-audits.
+Clone this repo:
 
 ```bash
-pip install parse-audits
+git clone https://github.com/harmony5/parse_audits
+```
+
+Then use the package manager [pip](https://pip.pypa.io/en/stable/) to install the package:
+
+```bash
+pip install -e parse_audits/
 ```
 
 ## Usage
@@ -15,7 +21,7 @@ pip install parse-audits
 To parse an Audit file, simply run:
 
 ```bash
-python3 parse-audits my_cq_audit_file
+main.py my_cq_audit_file
 ```
 
 This will create 5 **csv** files:
