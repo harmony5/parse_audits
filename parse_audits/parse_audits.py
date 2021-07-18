@@ -3,6 +3,19 @@ import regex as re
 import json
 from os import path
 
+""" v3.0
+(?s)(?x)====START====\v
+Time         \s+:\s+ (?P<time>\d{4}-\d\d-\d\d\ \d\d:\d\d:\d\d\ [+-]?\d\d:\d\d)\v
+Schema\ Rev  \s+:\s+ (?P<schema>\d+)\v
+User\ Name   \s+:\s+ (?P<user_name>[\p{L}\s]+)\v
+User\ Login  \s+:\s+ (?P<user_login>[uU]\d+|\w+)\v
+User\ Groups \s+:\s+ (?P<user_groups>[\w\s]+)\v
+Action       \s+:\s+ (?P<action>[\w\s]+)\v
+State        \s+:\s+ (?P<state>[\w\s]*)\v
+==Fields==\v
+(?P<fields>.+?)\v
+====END====
+"""
 
 __AUDIT_ENTRY_PATTERN = re.compile(
     r"(?<=====START====\n)"
@@ -142,7 +155,8 @@ def __parse_audits_csv_str(audit_str: str) -> Dict[str, str]:
     entry_csv = "\n".join(
         ["eid|uid|time|schema|action|state"]
         + [
-            f"{eid}|{uid}|{time}|{schema}|{action}|{state}"
+            f"{eid}|{uid}|{time}|
+            #  {schema}|{action}|{state}"
             for eid, uid, time, schema, action, state in parsed["entries"]
         ]
     )
