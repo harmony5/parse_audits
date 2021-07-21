@@ -51,11 +51,8 @@ State        \s+:\s+ (?P<state>[\w\s]*)\v
 (?sx)
 (?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)[\r\n]+
 (?:
-    \s+Old \s+: (?P<old>.*?) 
-    \s+New \s+: (?P<new>.*?)
-|
-    \s+(?P<value>.*?)
-)
+    \s+Old \s+:   (?P<old>.*?) 
+    \s+New \s+: ? (?P<new>.*?)
 (?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)|$)
 """ 
 """ Field regex v3.7
