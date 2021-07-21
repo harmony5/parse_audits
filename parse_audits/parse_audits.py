@@ -16,32 +16,77 @@ State        \s+:\s+ (?P<state>[\w\s]*)\v
 (?P<fields>.+?)\v
 ====END====
 """
+""" v3.5
+(?sux)
+====START====[\r\n]+
+[^:]+:\s+ (?P<time>        [^\r\n]*)[\r\n]+
+[^:]+:\s+ (?P<schema>      [^\r\n]*)[\r\n]+
+[^:]+:\s+ (?P<user_name>   [^\r\n]+)[\r\n]+
+[^:]+:\s+ (?P<user_login>  [^\r\n]+)[\r\n]+
+[^:]+:\s+ (?P<user_groups> [^\r\n]*)[\r\n]+
+[^:]+:\s+ (?P<action>      [^\r\n]+)[\r\n]+
+[^:]+:\s+ (?P<state>       [^\r\n]*)[\r\n]+
+==Fields==[\r\n]+
+(?P<fields>.+?)
+[\r\n]+
+====END====
+"""
 
-__AUDIT_ENTRY_PATTERN = re.compile(
-    r"(?<=====START====\n)"
-    r"(?P<entry>"
-    r"(?:Time           :    )(?P<time>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]?\d{2}:\d{2})(?:\n)"  # YY-MM-DD HH:mm:SS Timezone
-    r"(?:Schema Rev     :    )(?P<schema>\d+?)(?:\n)"
-    r"(?:User Name      :    )(?P<user_name>[\w ]+?)(?:\n)"
-    r"(?:User Login     :    )(?P<user_login>(?:[uU]\d+?|\w+?))(?:\n)"
-    r"(?:User Groups    :    )(?P<groups>[\w ]+?)(?:\n)"
-    r"(?:Action         :    )(?P<action>[\w ]+?)(?:\n)"
-    r"(?:State          :    )(?P<state>[\w ]*?)(?:\n)"
-    r"(?:==Fields==\n)"
-    r"(?P<fields>.+?)"
-    r")(?=\n====END====)",
-    re.UNICODE | re.DOTALL,
+""" Field regex v3.0
+# This version makes clear which fields have an 'old' and a 'new' value,
+# and which ones just have their current value
+(?sx)
+(?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)[\r\n]+
+(?:
+    \s+Old \s+: (?P<old>.*?) 
+    \s+New \s+: (?P<new>.*?)
+|
+    \s+(?P<value>.*?)
 )
+(?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)|$)
+"""
+""" Field regex v3.5
+# This version doesn't make clear which fields only have their current
+# value, and which just have an empty 'old'.
+(?sx)
+(?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)[\r\n]+
+(?:
+    \s+Old \s+: (?P<old>.*?) 
+    \s+New \s+: (?P<new>.*?)
+|
+    \s+(?P<value>.*?)
+)
+(?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)|$)
+""" 
+""" Field regex v3.7
+(?sux)
+(?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)
+[\r\n]+(?: \s+ Old \s+:       (?P<old>.*?)
+[\r\n]+    \s+ New \s+: )?\s+ (?P<new>.*?)
+(?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)[\r\n]+\s+|$)
+"""
 
-__AUDIT_ENTRY_FIELD_PATTERN = re.compile(
-    r"(?P<fieldname>\w+?)(?:\s+)(?P<delta>\(\d+(:\d+)?\))(?:\n)"
-    r"(?:"
-    r"(?:    Old :    )(?P<old>.*?)(?=\n    New :    )"
-    r"(?:\n    New :    )(?P<new>.*?)(?=\n\w+\s+\(\d+:\d+\)\n    Old :    |\n====END====|$)"
-    r"|(?:        )(?P<value>.*?)(?=\n\w+\s+\(\d+\)\n        |\n====END====|$)"
-    r")",
-    re.UNICODE | re.DOTALL,
-)
+ENTRY_PATTERN = re.compile(r"""(?sx)
+        ====START====[\r\n]+
+        [^:]+:\s+ (?P<time>        [^\r\n]*)[\r\n]+
+        [^:]+:\s+ (?P<schema>      [^\r\n]*)[\r\n]+
+        [^:]+:\s+ (?P<user_name>   [^\r\n]+)[\r\n]+
+        [^:]+:\s+ (?P<user_login>  [^\r\n]+)[\r\n]+
+        [^:]+:\s+ (?P<user_groups> [^\r\n]*)[\r\n]+
+        [^:]+:\s+ (?P<action>      [^\r\n]+)[\r\n]+
+        [^:]+:\s+ (?P<state>       [^\r\n]*)[\r\n]+
+        ==Fields==[\r\n]+
+        (?P<fields>.+?)
+        [\r\n]+
+        ====END====
+    """)
+
+FIELD_PATTERN = re.compile(r"""(?sx)
+        ((?P<field_name>\S+)\s+\((?P<delta>\d+(?::\d+)?)\)[\r\n]+\s+)
+        (?: Old \s+:    (?P<old>.*?)[\r\n]+
+        \s+ New \s+: )? (?P<new>.*?) 
+        (?=[\r\n]+(?1)\w+|$)
+    """)
 
 
 def __parse_fields_json(field_str: str) -> List[Dict[str, Any]]:
