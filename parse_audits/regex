@@ -1,0 +1,65 @@
+entry_regex_v3.0 = r"""(?sx)
+====START====\v
+Time         \s+:\s+ (?P<time>\d{4}-\d\d-\d\d\ \d\d:\d\d:\d\d\ [+-]?\d\d:\d\d)\v
+Schema\ Rev  \s+:\s+ (?P<schema>\d+)\v
+User\ Name   \s+:\s+ (?P<user_name>[\p{L}\s]+)\v
+User\ Login  \s+:\s+ (?P<user_login>[uU]\d+|\w+)\v
+User\ Groups \s+:\s+ (?P<user_groups>[\w\s]+)\v
+Action       \s+:\s+ (?P<action>[\w\s]+)\v
+State        \s+:\s+ (?P<state>[\w\s]*)\v
+==Fields==\v
+(?P<fields>.+?)\v
+====END====
+"""
+
+entry_regex_v3.5 = r"""(?sux)
+====START====[\r\n]+
+[^:]+:\s+ (?P<time>        [^\r\n]*)[\r\n]+
+[^:]+:\s+ (?P<schema>      [^\r\n]*)[\r\n]+
+[^:]+:\s+ (?P<user_name>   [^\r\n]+)[\r\n]+
+[^:]+:\s+ (?P<user_login>  [^\r\n]+)[\r\n]+
+[^:]+:\s+ (?P<user_groups> [^\r\n]*)[\r\n]+
+[^:]+:\s+ (?P<action>      [^\r\n]+)[\r\n]+
+[^:]+:\s+ (?P<state>       [^\r\n]*)[\r\n]+
+==Fields==[\r\n]+
+(?P<fields>.+?)
+[\r\n]+
+====END====
+"""
+
+# This version makes clear which fields have an 'old' and a 'new' value,
+# and which ones just have their current value
+field_regex_v3.0 = r"""(?sx)
+(?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)[\r\n]+
+(?:
+    \s+Old \s+: (?P<old>.*?) 
+    \s+New \s+: (?P<new>.*?)
+|
+    \s+(?P<value>.*?)
+)
+(?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)|$)
+"""
+
+# This version doesn't make clear which fields only have their current
+# value, and which just have an empty 'old'.
+field_regex_v3.5 = r"""(?sx)
+(?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)[\r\n]+
+(?:
+    \s+Old \s+:   (?P<old>.*?) 
+    \s+New \s+: ? (?P<new>.*?)
+(?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)|$)
+"""
+
+field_regex_v3.7 = r"""(?sux)
+(?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)
+[\r\n]+(?: \s+ Old \s+:       (?P<old>.*?)
+[\r\n]+    \s+ New \s+: )?\s+ (?P<new>.*?)
+(?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)[\r\n]+\s+|$)
+"""
+
+field_regex_v4.0 = r"""(?sx)
+((?P<field_name>\S+)\s+\((?P<delta>\d+(?::\d+)?)\)[\r\n]+\s+)
+(?: Old \s+:    (?P<old>.*?)[\r\n]+
+\s+ New \s+: )? (?P<new>.*?) 
+(?=[\r\n]+(?1)\w+|$)
+"""
