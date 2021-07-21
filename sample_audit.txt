@@ -1,0 +1,177 @@
+====START====
+Time           :    2020-02-21 07:57:50 -04:00
+Schema Rev     :    12
+User Name      :    FULANO DE THAL GONZÁLEZ
+User Login     :    U50431
+User Groups    :    GRUPO_01    GRUPO_02    GRUPO_03
+Action         :    Modificar
+State          :    
+==Fields==
+Nombre_Usuario  (8:11)
+    Old :    John Doe
+    New :    John C. Doe
+Total_Ahorros  (12:12)
+    Old :    1,268,862.46
+    New :    1,288,865.79
+Total_Credito  (4:9)
+    Old :    0.00
+    New :    20,000.00
+Cuentas_Asociadas  (17:26)
+    Old :    11122233
+44455566
+    New :    11122233
+44455566
+77788899
+Asignado_Por_Login  (0:6)
+    Old :    
+    New :    U11223
+Razon_anulacion  (0:20)
+    Old :    
+    New :    Error de Transaccion
+Fecha_anulacion  (0:19)
+    Old :    
+    New :    2020-02-21 07:54:00
+Email  (19:16)
+    Old :    example@example.com
+    New :    test@example.com
+
+====END====
+
+====START====
+Time           :    2020-04-22 12:58:00 -04:00
+Schema Rev     :    12
+User Name      :    Jane Doe
+User Login     :    U40525
+User Groups    :    GRUPO_01    GRUPO_03
+Action         :    Modificar
+State          :    
+==Fields==
+Pendiente_Credito_Abril_US  (6:1)
+    Old :    100.00
+    New :    0
+
+====END====
+
+====START====
+Time           :    2020-04-22 12:57:58 -04:00
+Schema Rev     :    139
+User Name      :    Esteban Quito
+User Login     :    U31500
+User Groups    :    GRUPO_03    GRUPO_05    GRUPO_13    GRUPO_14    GRUPO_92
+Action         :    Modificar
+State          :    
+==Fields==
+Gasto_Total  (9:9)
+    Old :    19,790.38
+    New :    17,104.01
+Un_Porcentaje   (5:5)
+    Old :    67.54
+    New :    60.10
+Gasto_Hasta_Abril  (14:14)
+    Old :    478,503,167.00
+    New :    209,867,430.00
+Presupuesto_Abril  (12:12)
+    Old :    4,785,031.67
+    New :    2,098,674.30
+
+====END====
+
+====START====
+Time           :    2020-04-22 12:57:56 -04:00
+Schema Rev     :    139
+User Name      :    Elsa Pato
+User Login     :    U31500
+User Groups    :    GRUPO_05 GRUPO_GRUPAL ANALISTAS GRUPO_07 GRUPO_ETC
+Action         :    Modificar
+State          :    
+==Fields==
+Reservado_Total   (12:12)
+    Old :    4,470,604.54
+    New :    7,156,961.91
+
+====END====
+
+====START====
+Time           :    2020-04-22 12:44:48 -04:00
+Schema Rev     :    139
+User Name      :    Ana Lisa Mee
+User Login     :    U34343
+User Groups    :    ANALISTAS    GRUPO_DE_LISAS    GRUPO_07    GRUPO_01    SUBGERENTES
+Action         :    Modificar
+State          :    
+==Fields==
+Reservado_Total   (12:12)
+    Old :    4,470,604.56
+    New :    4,470,604.54
+
+====END====
+
+====START====
+Time           :    2020-04-22 12:44:47 -04:00
+Schema Rev     :    139
+User Name      :    ANDRÉS TROZADO
+User Login     :    U34041
+User Groups    :    GRUPO_OFICIAL    CONTABILIDAD    GESTION_CAPITAL    GERENCIA_CREDITO
+Action         :    Modificar
+State          :    
+==Fields==
+Gasto_Total  (13:13)
+    Old :    19,790,779.36
+    New :    19,790,779.38
+Gasto_Hasta_Abril  (14:14)
+    Old :    478,503,165.00
+    New :    478,503,167.00
+Presupuesto_Abril  (12:12)
+    Old :    4,785,031.65
+    New :    4,785,031.67
+Descripcion      (150)
+        Pago Factura #5566 por concepto de: Proyecto Mi_Proyecto #1122 - ABC - Programa parse_audits
+
+Pago realizado a la cuenta No. 1234567890 en dólares
+
+====END====
+
+====START====
+Time           :    2020-01-08 16:49:59 -04:00
+Schema Rev     :    139
+User Name      :    Usuario Automatizador
+User Login     :    automatizador
+User Groups    :    GRUPO_OFICIAL    GRUPO_11    GERENTES    ADMINISTRADORES    GESTION_CAPITAL
+Action         :    Import
+State          :    
+==Fields==
+Id_Detalle_Cuenta  (0:8)
+    Old :    
+    New :    45585262
+Temp_Porcentaje     (0:3)
+    Old :    
+    New :    100
+Temp_Id         (8:8)
+    Old :    45574396
+    New :    45585262
+
+====END====
+
+====START====
+Time           :    2020-01-13 09:58:38 -04:00
+Schema Rev     :    139
+User Name      :    ARMANDO BRONCA SEGURA
+User Login     :    U35409
+User Groups    :    GRUPO_OFICIAL    GRUPO_13    Presupuestos    ADMINISTRADORES    GESTION_CAPITAL
+Action         :    Ingresar
+State          :    Ingresado
+==Fields==
+Check_Ajustado  (1)
+        0
+Check_Incluir      (1)
+        1
+Descripcion      (59)
+        Pago correspondiente a la nómina del mes de Octiembre 2099.
+Destinatario     (14)
+        DEST0000000007
+Destinatario_Area  (11)
+        Contraloría
+Destinatario_FullName  (9)
+        Elsa Pato
+
+====END====
