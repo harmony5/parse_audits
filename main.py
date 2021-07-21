@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 
-import typer
-from parse_audits.parse_audits import process_audit_file
+# bin {
+#     parser_cli.py
+# }
 
+# parsers {
+#     parser_core.py
+#     csv_parser.py
+#     json_parser.py
+#     excel_parser.py?
+# }
 
-def main(audit_filename: str):
-    typer.echo(f"Proccessing CQ Audit file: {audit_filename}")
-    process_audit_file(audit_filename)
-    typer.echo("Finished proccessing")
+# main.py: file handling and other stuff?
 
-
-if __name__ == "__main__":
-    typer.run(main)
+# Check TextFSM library to see if it can help with audit parsing
+# Maybe settle for json (it's easier convert the matched regex to json)

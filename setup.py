@@ -7,11 +7,9 @@ setup(
     version='1.0',
     packages=[
         'parse_audits',
-        'parse_audits.parsers',
         'parse_audits.test',
-        'parse_audits.test.parsers_tests',
     ],
-    scripts=['main.py'],
+    scripts=['bin/parser_cli.py'],
     license='LICENSE.txt',
     description='A tool to parse ClearQuest AuditTrail files to an easier to use format.',
     long_description=open('README.md').read(),
