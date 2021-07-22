@@ -1,5 +1,6 @@
-from typing import List, Dict, Any
 from dataclasses import dataclass
+from typing import List, Dict, Any
+
 from regex import compile as regex_compile
 
 

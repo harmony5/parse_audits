@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from os import path
 import typer
-from parse_audits.parse_audits import parse_audit_text_as_json
+from parse_audits.parsers import parse_audit_text_as_json
 from parse_audits.utils import _read_file, _write_file
 
 
@@ -10,7 +10,7 @@ def main(audit_filename: str):
     
     parsed = parse_audit_text_as_json(_read_file(audit_filename))
     basename = path.basename(audit_filename).split(".")[0]
-    _write_file(f"{basename}_parsed.csv", parsed)
+    _write_file(f"{basename}_parsed.json", parsed)
 
     typer.echo("Finished proccessing")
 

@@ -1,14 +1,11 @@
-from typing import Generator, List, Dict, Any
 import json
+from typing import Any, Dict, Generator, List
 
-import regex as re
-
-from .models import ENTRY_PATTERN, FIELD_PATTERN
-from .utils import _format_time_string
-
+from parse_audits.models import ENTRY_PATTERN, FIELD_PATTERN
+from parse_audits.utils import _format_time_string
 
 
-def parse_audit_fields_from_text(text: str) -> List[Dict[str, Any]]:
+def parse_audit_fields_from_text(fields_text: str) -> List[Dict[str, Any]]:
     """Parse the fields from text to a list of dicts"""
     fields = [
         {
@@ -17,7 +14,7 @@ def parse_audit_fields_from_text(text: str) -> List[Dict[str, Any]]:
             "old": old.strip() if old else "",
             "new": new.strip() if new else "",
         }
-        for field_name, delta, old, new in FIELD_PATTERN.findall(text)
+        for _, field_name, delta, old, new in FIELD_PATTERN.findall(fields_text)
     ]
 
     return fields

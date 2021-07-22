@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='parse_audits',
-    version='1.0',
+    version='1.1.0',
     packages=[
         'parse_audits',
         'parse_audits.test',
