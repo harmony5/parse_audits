@@ -8,13 +8,8 @@ from parse_audits.utils import _format_time_string
 def parse_audit_fields_from_text(fields_text: str) -> List[Dict[str, Any]]:
     """Parse the fields from text to a list of dicts"""
     fields = [
-        {
-            "field_name": field_name,
-            "delta": delta,
-            "old": old.strip() if old else "",
-            "new": new.strip() if new else "",
-        }
-        for _, field_name, delta, old, new in FIELD_PATTERN.findall(fields_text)
+        field_match.groupdict('')
+        for field_match in FIELD_PATTERN.finditer(fields_text)
     ]
 
     return fields
@@ -26,7 +21,7 @@ def parse_audit_entries_from_text(audit_text: str) -> Generator[Dict[str, Any], 
     """
     for entry_match in ENTRY_PATTERN.finditer(audit_text):
         # Get the entry
-        entry = entry_match.groupdict()
+        entry = entry_match.groupdict('')
 
         entry.update(
             {

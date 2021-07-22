@@ -24,9 +24,9 @@ ENTRY_PATTERN = regex_compile(
 FIELD_PATTERN = regex_compile(
     r"""(?sx)
         ((?P<field_name>\S+)\s+\((?P<delta>\d+(?::\d+)?)\)[\r\n]+\s+)
-        (?: Old \s+:    (?P<old>.*?)[\r\n]+
-        \s+ New \s+: )? (?P<new>.*?) 
-        (?=[\r\n]+(?1)\w+|$)
+        (?: Old \s+: [\t\f ]+ (?P<old>.*?) [\r\n]+
+        \s+ New \s+: \s+)?    (?P<new>.+?)
+        (?=[\r\n]+(?1)\S|$)
     """
 )
 
@@ -34,7 +34,6 @@ FIELD_PATTERN = regex_compile(
 @dataclass
 class AuditEntryField:
     """Represents a single field in an AuditTrail entry."""
-
     field_name: str
     delta: str
     old: str
@@ -44,9 +43,8 @@ class AuditEntryField:
 @dataclass
 class AuditEntry:
     """Represents a single AuditTrail entry."""
-
     time: str
-    schema: int
+    schema: str
     user_name: str
     user_login: str
     user_groups: List[str]

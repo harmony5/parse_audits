@@ -1,4 +1,4 @@
-entry_regex_v3.0 = r"""(?sx)
+entry_regex_v3_0 = r"""(?sx)
 ====START====\v
 Time         \s+:\s+ (?P<time>\d{4}-\d\d-\d\d\ \d\d:\d\d:\d\d\ [+-]?\d\d:\d\d)\v
 Schema\ Rev  \s+:\s+ (?P<schema>\d+)\v
@@ -12,7 +12,7 @@ State        \s+:\s+ (?P<state>[\w\s]*)\v
 ====END====
 """
 
-entry_regex_v3.5 = r"""(?sux)
+entry_regex_v3_5 = r"""(?sux)
 ====START====[\r\n]+
 [^:]+:\s+ (?P<time>        [^\r\n]*)[\r\n]+
 [^:]+:\s+ (?P<schema>      [^\r\n]*)[\r\n]+
@@ -29,7 +29,7 @@ entry_regex_v3.5 = r"""(?sux)
 
 # This version makes clear which fields have an 'old' and a 'new' value,
 # and which ones just have their current value
-field_regex_v3.0 = r"""(?sx)
+field_regex_v3_0 = r"""(?sx)
 (?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)[\r\n]+
 (?:
     \s+Old \s+: (?P<old>.*?) 
@@ -42,7 +42,7 @@ field_regex_v3.0 = r"""(?sx)
 
 # This version doesn't make clear which fields only have their current
 # value, and which just have an empty 'old'.
-field_regex_v3.5 = r"""(?sx)
+field_regex_v3_5 = r"""(?sx)
 (?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)[\r\n]+
 (?:
     \s+Old \s+:   (?P<old>.*?) 
@@ -50,16 +50,25 @@ field_regex_v3.5 = r"""(?sx)
 (?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)|$)
 """
 
-field_regex_v3.7 = r"""(?sux)
+field_regex_v3_7 = r"""(?sux)
 (?P<field_name>\S+)\s+ \((?P<delta>\d+(?::\d+)?)\)
 [\r\n]+(?: \s+ Old \s+:       (?P<old>.*?)
 [\r\n]+    \s+ New \s+: )?\s+ (?P<new>.*?)
 (?=[\r\n]+\w+\s+ \(\d+(?::\d+)?\)[\r\n]+\s+|$)
 """
 
-field_regex_v4.0 = r"""(?sx)
+field_regex_v4_0 = r"""(?sx)
 ((?P<field_name>\S+)\s+\((?P<delta>\d+(?::\d+)?)\)[\r\n]+\s+)
 (?: Old \s+:    (?P<old>.*?)[\r\n]+
 \s+ New \s+: )? (?P<new>.*?) 
 (?=[\r\n]+(?1)\w+|$)
+"""
+
+# This version strips the trailing whitespace
+# from the 'old' and 'new' values
+field_regex_v4_1 = r"""(?sx)
+((?P<field_name>\S+)\s+\((?P<delta>\d+(?::\d+)?)\)[\r\n]+\s+)
+(?: Old \s+: [\t\f ]+ (?P<old>.*?) [\r\n]+
+\s+ New \s+: \s+)?    (?P<new>.+?)
+(?=[\r\n]+(?1)\w|$)
 """
