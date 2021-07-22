@@ -1,8 +1,8 @@
-# parse-audits
+# parse-audits 📑
 
-`parse-audits` lets you parse [ClearQuest](https://www.ibm.com/products/rational-clearquest) [AuditTrail](https://www.ibm.com/support/pages/ibm-rational-clearquest-audittrail-esignature-packages-user-guide) files to an easier to use format like **csv**.
+`parse-audits` lets you parse [ClearQuest](https://www.ibm.com/products/rational-clearquest) [AuditTrail](https://www.ibm.com/support/pages/ibm-rational-clearquest-audittrail-esignature-packages-user-guide) files to an easier to use format like **csv** or **json**.
 
-## Installation
+## Installation 📦⬇
 
 Clone this repo:
 
@@ -16,30 +16,76 @@ Then use the package manager [pip](https://pip.pypa.io/en/stable/) to install th
 pip install -e parse_audits/
 ```
 
-## Usage
+## Usage 🛠
 
 To parse an Audit file, simply run:
 
 ```bash
-main.py my_cq_audit_file
+parser_cli.py my_cq_audit_file
 ```
 
-This will create 5 **csv** files:
+This will create a **json** file with the name `my_cq_audit_file_parsed.json` containing all audit modifications with the following structure:
 
-- **my_cq_audit_file_entries.csv**: contains general information about entries in the audit file, like time of the entry, schema version, action taken on the record, and the state of the record.
+```json
+[
+    {
+        // Time of the modification with the format 'YYYY-MM-DD HH:mm:SS [+-]HHmm'
+        "time": "2020-12-31 00:00:00 -0400",
 
-- **my_cq_audit_file_users.csv**: information about the users, like username and the login id.
+        // Schema version at the time of record modification
+        "schema": "01",
 
-- **my_cq_audit_file_groups.csv**: a list of all groups found on the audit file.
+        // User who made the modification
+        "user_name": "Jane Doe",
 
-- **my_cq_audit_file_users_groups.csv**: contains the relations between the users and the groups they're in.
+        // User login number
+        "user_login": "U12345",
 
-- **my_cq_audit_file_fields.csv**: information about modified fields, including the field name, delta (length of the text value before and after changing the record), the old value, the new value.
+        // Groups the user was in at the time of the modification
+        "user_groups": ["group_1", "group_2", "group_3"],
 
-## Contributing
+        // Action that modified the record
+        "action": "Update",
+
+        // State of the record after the action
+        "state": "Modified",
+
+        // Fields modified by the action
+        "fields": [
+            {
+                "field_name": "Email",
+
+                // Length of 'old' value / length of 'new' value
+                "delta": "20:22",
+
+                // Value before the modification
+                "old": "jane.doe@example.com",
+
+                // Value after the modification
+                "new": "jane.doe99@example.com"
+            },
+            {
+                "field_name": "Description",
+
+                // For some fields only their current (new) value is saved.
+                // In these cases, delta is only the length of this value
+                "delta": "35",
+
+                "old": "",
+
+                // Current value of the field
+                "new": "This is the new record description."
+            }
+        ]
+    }
+    // Some other entries in the AuditTrail file
+]
+```
+
+## Contributing ✍
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## License
+## License 📜⚖
 
 This project uses the [MIT](https://choosealicense.com/licenses/mit/) license.
