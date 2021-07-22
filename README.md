@@ -26,7 +26,7 @@ parser_cli.py my_cq_audit_file
 
 This will create a **json** file with the name `my_cq_audit_file_parsed.json` containing all audit modifications with the following structure:
 
-```json
+```jsonc
 [
     {
         // Time of the modification with the format 'YYYY-MM-DD HH:mm:SS [+-]HHmm'
