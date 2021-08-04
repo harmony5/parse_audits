@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import List, Dict, Any
+from typing import List
 
-from re import A, Pattern
+from re import Pattern
 from regex import compile as regex_compile
 
 
