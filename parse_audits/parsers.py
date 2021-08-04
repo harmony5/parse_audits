@@ -6,8 +6,8 @@ from typing import Any, Dict, Generator, Union
 
 import pandas as pd
 
-from parse_audits.models import ENTRY_PATTERN, FIELD_PATTERN
-from parse_audits.utils import _convert_dicts_to_csv, _format_time_string
+from .models import ENTRY_PATTERN, FIELD_PATTERN
+from .utils import _convert_dicts_to_csv, _format_time_string
 
 
 DictIter = Generator[Dict[Any, Any], None, None]
