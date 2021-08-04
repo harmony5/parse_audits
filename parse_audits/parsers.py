@@ -1,52 +1,52 @@
 import json
-from typing import Any, Dict, Generator, List
+from typing import Any, Dict, Generator
 
 from parse_audits.models import ENTRY_PATTERN, FIELD_PATTERN
 from parse_audits.utils import _format_time_string
 
 
-def parse_audit_fields_from_text(fields_text: str) -> List[Dict[str, Any]]:
+DictIter = Generator[Dict[Any, Any], None, None]
+
+
+def _parse_fields_from_text(text: str) -> DictIter:
     """Parse the fields from text to a list of dicts"""
-    fields = [
-        field_match.groupdict('')
-        for field_match in FIELD_PATTERN.finditer(fields_text)
-    ]
+    fields = [field_match.groupdict("") for field_match in FIELD_PATTERN.finditer(text)]
 
     return fields
 
 
-def parse_audit_entries_from_text(audit_text: str) -> Generator[Dict[str, Any], None, None]:
+def _parse_entries_from_text(text: str) -> DictIter:
     """
     Parse the given AuditTrail text and return a list of audit entries.
     """
-    for entry_match in ENTRY_PATTERN.finditer(audit_text):
+    for entry_match in ENTRY_PATTERN.finditer(text):
         # Get the entry
-        entry = entry_match.groupdict('')
+        entry = entry_match.groupdict("")
 
         entry.update(
             {
                 "time": _format_time_string(entry["time"]),
                 "user_groups": entry["user_groups"].split(),
-                "fields": parse_audit_fields_from_text(entry["fields"]),
+                "fields": _parse_fields_from_text(entry["fields"]),
             }
         )
 
         yield entry
 
 
-def parse_audit_text_as_json(audit_text: str) -> str:
+def parse_text_as_json(audit_text: str) -> str:
     """Parse the given AuditTrail text and return a JSON string."""
-    return json.dumps(list(parse_audit_entries_from_text(audit_text)), ensure_ascii=False)
+    return json.dumps(list(_parse_entries_from_text(audit_text)), ensure_ascii=False)
 
 
-def parse_audit_text_as_csv(audit_text: str) -> str:
+def parse_text_as_csv(audit_text: str) -> str:
     """Parse the given AuditTrail text and return a CSV string."""
     csv_lines = [
         "'time'|'schema'|'user_name'|'user_login'|'user_groups'|\
         'action'|'state'|'field_name'|'delta'|'old'|'new'"
     ]
 
-    for entry in parse_audit_entries_from_text(audit_text):
+    for entry in _parse_entries_from_text(audit_text):
         fields = entry["fields"]
 
         for field in fields:
@@ -71,6 +71,6 @@ def parse_audit_text_as_csv(audit_text: str) -> str:
     return "\n".join(csv_lines)
 
 
-def parse_audit_text_as_excel(audit_text: str):
+def parse_text_as_excel(audit_text: str) -> bytes:
     """Parse the given AuditTrail text and return an Excel spreadsheet."""
     raise NotImplementedError()
