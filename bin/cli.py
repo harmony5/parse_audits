@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S py -3
 from os import path
 from typing import Optional
 
@@ -8,8 +8,12 @@ from parse_audits.parsers import Format, Parser
 from parse_audits.utils import _read_file, _write_file
 
 
+app = typer.Typer()
+
+
+@app.callback()
 def main(
-    audit_filename: str,
+    audit_filename: str = typer.Argument(..., help="The file to parse."),
     format: Optional[Format] = typer.Option(
         Format.JSON,
         "--format",
@@ -20,7 +24,7 @@ def main(
         None,
         "--outfile",
         "-o",
-        help="Save the parsed file to the specified directory/filename.",
+        help="Save the parsed file with the specified filename.",
     ),
 ):
     typer.echo(f"Proccessing CQ Audit file: {audit_filename}")
