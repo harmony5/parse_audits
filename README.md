@@ -1,4 +1,4 @@
-# `parse-audits` 📑
+# parse-audits 📑
 
 `parse-audits` lets you parse [ClearQuest](https://www.ibm.com/products/rational-clearquest) [AuditTrail](https://www.ibm.com/support/pages/ibm-rational-clearquest-audittrail-esignature-packages-user-guide) files to an easier to use format like **csv** or **json**.
 
