@@ -88,10 +88,7 @@ parse-audits -f csv my_cq_audit_file
 
 This will create a **csv** file named `my_cq_audit_file_parsed.csv` with `|` as delimiter and with values **not enclosed** in quotes. For example:
 
-```text
-entry_id|time|schema|user_name|user_login|user_groups|action|state|field_name|delta|old|new
-1|2020-12-31 00:00:00 -0400|01|Jane Doe|U12345|group_1,group_2,group_3|Update|Modified|Email|20:22|jane.doe@example.com|jane.doe99@example.com
-```
+![Parsed csv](docs/csv-example.png)
 
 Or we could parse the file to Excel:
 
@@ -103,9 +100,15 @@ This will create an **Excel** file named `my_cq_audit_file_parsed.xlsx` with 3 s
 
 -   **Audit Entries** contains the entries metadata, things like the time, schema, the user who made the change, the action taken and the state
 
+![Audit Entries](docs/excel-example-1.png)
+
 -   **Audit Fields** contains the fields data and the corresponding entry_id and time
 
+![Audit Fields](docs/excel-example-2.png)
+
 -   **User Groups** contains the user_name, user_login and the group_names of the users found in the file
+
+![User Groups](docs/excel-example-3.png)
 
 Currently supported formats are `csv`, `json` and `xlsx`. By default, `--format` is set to `json`.
 
