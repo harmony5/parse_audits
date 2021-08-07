@@ -8,12 +8,14 @@ from parse_audits.parsers import Format, Parser
 from parse_audits.utils import _read_file, _write_file
 
 
-app = typer.Typer()
+app = typer.Typer(name="parse-audits")
 
 
-@app.callback()
+@app.command()
 def main(
-    audit_filename: str = typer.Argument(..., help="The file to parse."),
+    audit_filename: str = typer.Argument(
+        ..., help="The path to the audit file to parse."
+    ),
     format: Optional[Format] = typer.Option(
         Format.JSON,
         "--format",
@@ -22,11 +24,15 @@ def main(
     ),
     output_filename: Optional[str] = typer.Option(
         None,
-        "--outfile",
+        "--output",
         "-o",
         help="Save the parsed file with the specified filename.",
     ),
 ):
+    """
+    A tool to parse ClearQuest AuditTrail files to an easier-to-use format.
+    """
+
     typer.echo(f"Proccessing CQ Audit file: {audit_filename}")
     audit_file = _read_file(audit_filename)
 
@@ -40,7 +46,3 @@ def main(
 
     _write_file(output_filename, parsed_content, binary=(format == Format.EXCEL))
     typer.echo(f"Parsed to file {output_filename}")
-
-
-if __name__ == "__main__":
-    typer.run(main)
