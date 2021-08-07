@@ -112,7 +112,7 @@ Currently supported formats are `csv`, `json` and `xlsx`. By default, `--format`
 For more help on how to use the tool, you can type:
 
 ```console
-$ parse-audits --help
+parse-audits --help
 ```
 
 Or see [CLI docs](docs/cli.md).
