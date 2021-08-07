@@ -1,5 +1,22 @@
 ====START====
 Time           :    2020-02-21 07:57:50 -04:00
+Schema Rev     :    01
+User Name      :    Jane Doe
+User Login     :    U12345
+User Groups    :    group_1    group_2    group_3
+Action         :    Update
+State          :    Modified
+==Fields==
+Email          (20:22)
+    Old :    jane.doe@example.com
+    New :    jane.doe99@example.com
+Description    (35)
+    This is the new record description.
+    
+====END====
+
+====START====
+Time           :    2020-02-21 07:57:50 -04:00
 Schema Rev     :    12
 User Name      :    FULANO DE THAL GONZÁLEZ
 User Login     :    U50431

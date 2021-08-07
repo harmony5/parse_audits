@@ -1,27 +1,21 @@
-# parse-audits 📑
+# `parse-audits` 📑
 
 `parse-audits` lets you parse [ClearQuest](https://www.ibm.com/products/rational-clearquest) [AuditTrail](https://www.ibm.com/support/pages/ibm-rational-clearquest-audittrail-esignature-packages-user-guide) files to an easier to use format like **csv** or **json**.
 
 ## Installation 📦⬇
 
-Clone this repo:
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the package:
 
-```bash
-git clone https://github.com/harmony5/parse_audits
-```
-
-Then use the package manager [pip](https://pip.pypa.io/en/stable/) to install the package:
-
-```bash
-pip install -e parse_audits/
+```console
+pip install parse-audits
 ```
 
 ## Usage 🛠
 
-To parse an Audit file, simply run:
+To parse an AuditTrail file, simply run:
 
-```bash
-parser_cli.py my_cq_audit_file
+```console
+parse-audits my_cq_audit_file
 ```
 
 This will create a **json** file with the name `my_cq_audit_file_parsed.json` containing all audit modifications with the following structure:
@@ -29,6 +23,8 @@ This will create a **json** file with the name `my_cq_audit_file_parsed.json` co
 ```jsonc
 [
     {
+        "entry_id": 1,
+
         // Time of the modification with the format 'YYYY-MM-DD HH:mm:SS [+-]HHmm'
         "time": "2020-12-31 00:00:00 -0400",
 
@@ -82,9 +78,48 @@ This will create a **json** file with the name `my_cq_audit_file_parsed.json` co
 ]
 ```
 
+You can also pass a `--format` or `-f` option to the tool to parse the file in an specific format.
+
+For example, if we wanted to parse the file to csv:
+
+```console
+parse-audits -f csv my_cq_audit_file
+```
+
+This will create a **csv** file named `my_cq_audit_file_parsed.csv` with `|` as delimiter and with values **not enclosed** in quotes. For example:
+
+```text
+entry_id|time|schema|user_name|user_login|user_groups|action|state|field_name|delta|old|new
+1|2020-12-31 00:00:00 -0400|01|Jane Doe|U12345|group_1,group_2,group_3|Update|Modified|Email|20:22|jane.doe@example.com|jane.doe99@example.com
+```
+
+Or we could parse the file to Excel:
+
+```console
+parse-audits -f xlsx my_cq_audit_file
+```
+
+This will create an **Excel** file named `my_cq_audit_file_parsed.xlsx` with 3 spreadsheets:
+
+-   **Audit Entries** contains the entries metadata, things like the time, schema, the user who made the change, the action taken and the state
+
+-   **Audit Fields** contains the fields data and the corresponding entry_id and time
+
+-   **User Groups** contains the user_name, user_login and the group_names of the users found in the file
+
+Currently supported formats are `csv`, `json` and `xlsx`. By default, `--format` is set to `json`.
+
+For more help on how to use the tool, you can type:
+
+```console
+$ parse-audits --help
+```
+
+Or see [CLI docs](docs/cli.md).
+
 ## Contributing ✍
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+[Pull requests](https://github.com/harmony5/parse_audits/pulls/new) are welcome. For major changes, [bug fixes](https://github.com/harmony5/parse_audits/issues/new?template=bug_report.md&labels=bug) or [feature requests](https://github.com/harmony5/catchup/issues/new?template=feature_request.md), please open an issue first to discuss what you would like to change.
 
 ## License 📜⚖
 
