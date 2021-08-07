@@ -18,7 +18,7 @@ regex = "^2021.8.3"
 openpyxl = "^3.0.7"
 
 [tool.poetry.scripts]
-parse_audits = "bin.cli:app"
+parse-audits = "bin.cli:app"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
