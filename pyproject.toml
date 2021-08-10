@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "parse_audits"
-version = "2.6.1"
+version = "2.6.2"
 description = "A library and tool to parse ClearQuest AuditTrail files to an easier-to-use format."
 authors = ["harmony5 <jeancgo@pm.me>"]
 license = "MIT"
@@ -18,7 +18,7 @@ regex = "^2021.8.3"
 openpyxl = "^3.0.7"
 
 [tool.poetry.scripts]
-parse-audits = "src.bin.cli:app"
+parse-audits = "bin.cli:app"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
