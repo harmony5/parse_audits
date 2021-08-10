@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "parse_audits"
-version = "2.5.3"
+version = "2.6.0"
 description = "A library and tool to parse ClearQuest AuditTrail files to an easier-to-use format."
 authors = ["harmony5 <jeancgo@pm.me>"]
 license = "MIT"
