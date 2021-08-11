@@ -1,12 +1,19 @@
 [tool.poetry]
 name = "parse_audits"
-version = "2.6.2"
+version = "2.6.4"
 description = "A library and tool to parse ClearQuest AuditTrail files to an easier-to-use format."
 authors = ["harmony5 <jeancgo@pm.me>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/harmony5/parse_audits"
 homepage = "https://github.com/harmony5/parse_audits"
+packages = [
+    { include = "parse_audits" },
+    { include = "bin" },
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/harmony5/parse_audits/issues"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -23,6 +30,3 @@ parse-audits = "bin.cli:app"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/harmony5/parse_audits/issues"
