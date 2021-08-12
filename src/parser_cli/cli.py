@@ -8,10 +8,10 @@ from parse_audits.parsers import Format, Parser
 from parse_audits.utils import _read_file, _write_file
 
 
-app = typer.Typer(name="parse-audits")
+cli = typer.Typer(name="parse-audits")
 
 
-@app.command()
+@cli.command()
 def main(
     audit_filename: str = typer.Argument(
         ..., help="The path to the audit file to parse."
@@ -44,5 +44,6 @@ def main(
         extension = format.value
         output_filename = f"{basename}_parsed.{extension}"
 
-    _write_file(output_filename, parsed_content, binary=(format == Format.EXCEL))
+    _write_file(output_filename, parsed_content,
+                binary=(format == Format.EXCEL))
     typer.echo(f"Parsed to file {output_filename}")
