@@ -122,7 +122,7 @@ Or see [CLI docs](docs/cli.md).
 
 ## Contributing ✍
 
-[Pull requests](https://github.com/harmony5/parse_audits/pulls/new) are welcome. For major changes, [bug fixes](https://github.com/harmony5/parse_audits/issues/new?template=bug_report.md&labels=bug) or [feature requests](https://github.com/harmony5/catchup/issues/new?template=feature_request.md), please open an issue first to discuss what you would like to change.
+[Pull requests](https://github.com/harmony5/parse_audits/pulls/new) are welcome. For major changes, [bug fixes](https://github.com/harmony5/parse_audits/issues/new?template=bug_report.md&labels=bug) or [feature requests](https://github.com/harmony5/parse_audits/issues/new?template=feature_request.md), please open an issue first to discuss what you would like to change.
 
 ## License 📜⚖
 
